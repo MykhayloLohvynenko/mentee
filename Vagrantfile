@@ -9,7 +9,7 @@ Vagrant.configure('2') do |config|
   config.vm.define 'host01' do |host01|
     host01.vm.box = 'centos/7'
     host01.vm.hostname = 'host01'
-    host01.vm.box_url = 'bento/centos-6.7'
+   # host01.vm.box_url = 'bento/centos-6.7'
     host01.vm.network :private_network, ip: '192.168.11.11'
     # host01.vm.network 'forwarded_port', guest: 9990, host: 9990
     host01.vm.provider :virtualbox do |v|
@@ -22,7 +22,7 @@ Vagrant.configure('2') do |config|
     #host02.vm.box = 'bento/centos-6.7'
     host02.vm.box = 'centos/7'
     host02.vm.hostname = 'host02'
-    host02.vm.box_url = 'bento/centos-6.7'
+    #host02.vm.box_url = 'bento/centos-6.7'
     host02.vm.network :private_network, ip: '192.168.11.12'
     # host01.vm.network 'forwarded_port', guest: 9990, host: 9990
     host02.vm.provider :virtualbox do |v|
@@ -53,8 +53,12 @@ Vagrant.configure('2') do |config|
     vb.customize ['modifyvm', :id, '--clipboard', 'bidirectional', '--draganddrop', 'bidirectional']
   end
   #config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
-  config.vm.provision :shell do |shell| # user
+  config.vm.provision "user", type: "shell" do |shell| # user
     shell.path = 'shell/user.sh'
+    shell.args = ''
+  end
+  config.vm.provision "ansible", type: "shell", run: "never" do |shell|
+    shell.path = 'shell/ansible.sh'
     shell.args = ''
   end
 
