@@ -9,7 +9,6 @@ Vagrant.configure('2') do |config|
   config.vm.define 'host01' do |host01|
     host01.vm.box = 'centos/7'
     host01.vm.hostname = 'host01'
-   # host01.vm.box_url = 'bento/centos-6.7'
     host01.vm.network :private_network, ip: '192.168.11.11'
     # host01.vm.network 'forwarded_port', guest: 9990, host: 9990
     host01.vm.provider :virtualbox do |v|
@@ -18,13 +17,12 @@ Vagrant.configure('2') do |config|
       v.customize ['modifyvm', :id, '--name', 'host01']
     end
   end
+
   config.vm.define 'host02' do |host02|
-    #host02.vm.box = 'bento/centos-6.7'
     host02.vm.box = 'centos/7'
     host02.vm.hostname = 'host02'
-    #host02.vm.box_url = 'bento/centos-6.7'
     host02.vm.network :private_network, ip: '192.168.11.12'
-    # host01.vm.network 'forwarded_port', guest: 9990, host: 9990
+    # host02.vm.network 'forwarded_port', guest: 9990, host: 9990
     host02.vm.provider :virtualbox do |v|
       v.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
       v.customize ['modifyvm', :id, '--memory', 2048]
@@ -32,18 +30,17 @@ Vagrant.configure('2') do |config|
     end
   end
 
-  # config.vm.define 'foundation1' do |foundation1|
-  #   foundation1.vm.box = 'bento/centos-6.7'
-  #   foundation1.vm.hostname = 'deheremap6845.emea.adsint.biz'
-  #   foundation1.vm.box_url = 'bento/centos-6.7'
-  #   foundation1.vm.network :private_network, ip: '192.168.11.11'
-  #   # foundation1.vm.network 'forwarded_port', guest: 9990, host: 9991
-  #   foundation1.vm.provider :virtualbox do |v|
-  #     v.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
-  #     v.customize ['modifyvm', :id, '--memory', 4096]
-  #     v.customize ['modifyvm', :id, '--name', 'foundation1']
-  #   end
-  # end
+  config.vm.define 'host03' do |host03|
+    host03.vm.box = 'centos/7'
+    host03.vm.hostname = 'host03'
+    host03.vm.network :private_network, ip: '192.168.11.13'
+    # host03.vm.network 'forwarded_port', guest: 9990, host: 9990
+    host03.vm.provider :virtualbox do |v|
+      v.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+      v.customize ['modifyvm', :id, '--memory', 2048]
+      v.customize ['modifyvm', :id, '--name', 'host03']
+    end
+  end
 
   config.vm.provider :virtualbox do |vb|
     # This allows symlinks to be created within the /vagrant root directory,
@@ -61,15 +58,4 @@ Vagrant.configure('2') do |config|
     shell.path = 'shell/ansible.sh'
     shell.args = ''
   end
-
-  # ssh
- # config.vm.provision :shell do |shell|
- #   shell.path = 'shell/vagrant_bootstrap.sh'
- #   shell.args = '-r foundationservices_install -e sit -a 201801.SIT -t FoundationService -d'
- # end
-  # config.vm.provision :shell do |shell|
-  #   shell.path = 'shell/vagrant_bootstrap.sh'
-  #   shell.args = '-r elasticsearch_install -e goa -a 201801.DEV -t ElasticSearch -d'
-  # end
-
 end
