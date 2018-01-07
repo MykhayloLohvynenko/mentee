@@ -5,7 +5,6 @@ set -eu
 
 # VARIABLES:
 
-HOME_ANSIBLE="/vagrant/ansible"
 ANSIBLE_CONFIG="/etc/ansible/ansible.cfg"
 
 # install ansible
@@ -14,9 +13,7 @@ sudo yum -y install ansible
 
 # Modify ansible configuration file.
 
-cat >> $ANSIBLE_CONFIG << EOF
-inventory = $HOME_ANSIBLE/inventory
-host_key_checking = False
-remote_user = ansible
-private_key_file = $HOME_ANSIBLE/keys/ansible
-EOF
+sed -i '/\[defaults\]/a inventory = /vagrant/ansible/inventory' $ANSIBLE_CONFIG
+sed -i '/\[defaults\]/a host_key_checking = False' $ANSIBLE_CONFIG
+sed -i '/\[defaults\]/a remote_user = ansible' $ANSIBLE_CONFIG
+sed -i '/\[defaults\]/a private_key_file = /vagrant/keys/ansible' $ANSIBLE_CONFIG
