@@ -49,7 +49,7 @@ Vagrant.configure('2') do |config|
     vb.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1']
     vb.customize ['modifyvm', :id, '--clipboard', 'bidirectional', '--draganddrop', 'bidirectional']
   end
-  #config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+  config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
   config.vm.provision "user", type: "shell" do |shell| # user
     shell.path = 'shell/user.sh'
     shell.args = ''
