@@ -59,3 +59,4 @@ Vagrant.configure('2') do |config|
     shell.args = ''
   end
 end
+##### TODO: config provision name "ansible" to run only on host03
