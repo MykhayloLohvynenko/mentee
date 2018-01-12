@@ -60,6 +60,4 @@
         groups: docker
         append: yes
       become: yes
-
-#    - name: docker init
-#      s
+    
