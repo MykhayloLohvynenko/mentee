@@ -40,6 +40,10 @@ Vagrant.configure('2') do |config|
       v.customize ['modifyvm', :id, '--memory', 2048]
       v.customize ['modifyvm', :id, '--name', 'host03']
     end
+    host03.vm.provision "ansible", type: "shell" do |shell|
+      shell.path = 'shell/ansible.sh'
+      shell.args = ''
+    end
   end
 
   config.vm.provider :virtualbox do |vb|
@@ -54,9 +58,8 @@ Vagrant.configure('2') do |config|
     shell.path = 'shell/user.sh'
     shell.args = ''
   end
-  config.vm.provision "ansible", type: "shell", run: "never" do |shell|
-    shell.path = 'shell/ansible.sh'
-    shell.args = ''
-  end
+  # config.vm.provision "ansible", type: "shell", run: "never" do |shell|
+  #   shell.path = 'shell/ansible.sh'
+  #   shell.args = ''
+  # end
 end
-##### TODO: config provision name "ansible" to run only on host03
