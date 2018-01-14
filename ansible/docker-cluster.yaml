@@ -1,0 +1,4 @@
+---
+- hosts: all-hosts
+  roles:
+    - docker-nodes

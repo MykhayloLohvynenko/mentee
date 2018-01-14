@@ -61,3 +61,29 @@
         append: yes
       become: yes
     
+    - name: Add user ansible to docker group
+      user:
+        name: ansible
+        group: docker
+        append: yes
+      become: yes
+
+- name: Init vagrant master
+  hosts: host03
+  sudo: yes
+  tasks: 
+    
+    - name: Create docker cluster
+      shell: docker swarm init --advertise-addr eth1
+    
+    - name: Docker get master for join
+      shell: docker swarm join-token -q worker
+      register: docker_token
+
+- name: Add dockers slave to the cluster
+  hosts: docker-slave
+  tasks:
+    # - name: echo docker token
+    #   shell: echo "{{ hostvars['host03']['docker_token']['stdout'] }}" > /tmp/1.txt
+    - name: add slaves to the cluster
+      shell: sudo docker swarm join --token "{{ hostvars['host03']['docker_token']['stdout'] }}" 192.168.11.13:2377

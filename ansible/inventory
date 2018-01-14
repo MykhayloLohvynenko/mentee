@@ -12,9 +12,6 @@ host01
 host02
 host03
 
-[docker-master]
-host03
-
 [docker-slave]
 host01
 host02

@@ -44,6 +44,10 @@ Vagrant.configure('2') do |config|
       shell.path = 'shell/ansible.sh'
       shell.args = ''
     end
+    host03.vm.provision "docker", type: "shell" do |shell|
+      shell.path = 'shell/init-docker.sh'
+      shell.args = ''
+    end
   end
 
   config.vm.provider :virtualbox do |vb|
