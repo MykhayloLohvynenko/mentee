@@ -1,0 +1,10 @@
+ADD NFS TO THE HOSTS (glusterFS)
+RUN ONE CONTAINER TO WRITE AND READ NFS
+from all nodes docker-compose		echo hostname >> file (in NFS)
+
+from alpine
+
+pause 1 minute and cat this file on all nodes. 
+
+
+

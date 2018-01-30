@@ -70,7 +70,7 @@
 
 - name: Init vagrant master
   hosts: host03
-  sudo: yes
+  become: yes
   tasks: 
     
     - name: Create docker cluster
