@@ -1,0 +1,8 @@
+---
+  - name: Create docker cluster
+    shell: docker swarm init --advertise-addr eth1
+    sudo: yes  
+  - name: Docker get master for join
+    shell: docker swarm join-token -q worker
+    register: docker_token
+    sudo: yes

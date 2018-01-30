@@ -15,3 +15,11 @@ host03
 [docker-slave]
 host01
 host02
+
+[docker-master]
+host03
+
+[docker-nodes]
+host01
+host02
+host03

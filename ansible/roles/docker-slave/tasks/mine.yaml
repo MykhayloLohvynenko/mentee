@@ -1,0 +1,4 @@
+---
+  - name: add slaves to the cluster
+    shell: sudo docker swarm join --token "{{ hostvars['host03']['docker_token']['stdout'] }}" 192.168.11.13:2377
+    sudo: yes

@@ -1,0 +1,5 @@
+---
+
+- hosts: docker-master
+  roles:
+    - docker-master

@@ -1,0 +1,5 @@
+---
+
+- import_playbook: docker-nodes.yaml
+- import_playbook: docker-master.yaml
+- import_playbook: docker-slave.yaml
