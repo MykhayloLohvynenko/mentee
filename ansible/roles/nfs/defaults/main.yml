@@ -11,4 +11,4 @@ nfs_exports:
 nfs_client_imports:
   - local: "/home"
     remote: "/home"
-    server_host: "{{hostvars['server']['ansible_default_ipv4']}}"
+    server_host: "{{hostvars['nfs-server']['ansible_default_ipv4']}}"

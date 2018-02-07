@@ -23,3 +23,10 @@ host03
 host01
 host02
 host03
+
+[nfs-server]
+192.168.11.13
+
+[nfs-client]
+192.168.11.11
+192.168.11.12

@@ -6,13 +6,16 @@
     - name: update repositories cache and install NFS
       yum: name=nfs-utils
       when: "ansible_os_family == 'RedHat'"
+      become: yes
 
     - name: Ensure rpcbind is running
       service: name=rpcbind state=started enabled=yes
+      become: yes
 
     - name: Wait NFS server to be up
       wait_for: timeout=300 port=2049 host="{{ item.server_host }}"
       with_items: "{{ nfs_client_imports }}"
+      become: yes
 
     - name: mount the shared directories
       mount:
@@ -24,3 +27,4 @@
         dump: "{{ item.dump | default(omit) }}"
         passno: "{{ item.passno | default(omit) }}"
       with_items: "{{ nfs_client_imports }}"
+      become: yes

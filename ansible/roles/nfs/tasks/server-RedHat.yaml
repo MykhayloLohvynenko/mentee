@@ -1,6 +1,7 @@
 ---
     - name: update repositories cache and install NFS in RedHat systems
       yum: name=nfs-utils
+      become: yes
 
     - set_fact: NFS_SERVICE="nfs"
 
