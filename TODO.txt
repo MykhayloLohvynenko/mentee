@@ -1,10 +1,10 @@
-ADD NFS TO THE HOSTS (glusterFS)
-RUN ONE CONTAINER TO WRITE AND READ NFS
-from all nodes docker-compose		echo hostname >> file (in NFS)
+NFS CONFIGURATION !!!!!!!!!!!!
 
-from alpine
+Docker service create restart policy
 
-pause 1 minute and cat this file on all nodes. 
+Sonarqube + Jekins  !!!!!!!!!!!
 
+update jenkins version
+Jenkins plugins. 
 
-
+JENKINS NFS !!!!!!
