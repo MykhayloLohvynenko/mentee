@@ -1,0 +1,13 @@
+automate this actions.
+
+https://github.com/jenkinsci/docker - manual for run jenkins in a docker
+
+  cd /vagrant/docker/jenkins/
+  docker build -t mainjenkins .
+  docker run mainjenkins -d
+  docker run mainjenkins
+  docker rm $(docker ps -a -q)
+  docker ps -a
+  docker run -p 8080:8080 mainjenkins
+
+  For other options please see manual.
