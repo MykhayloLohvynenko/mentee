@@ -1,1 +1,3 @@
 .vagrant/
+terraform/ssh_keys/
+terraform/aws_credentials.txt
