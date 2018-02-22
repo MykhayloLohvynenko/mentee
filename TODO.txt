@@ -1,10 +1,10 @@
-NFS CONFIGURATION !!!!!!!!!!!!
+NFS CONFIGURATION !!!!!!!!!!!! + 
 
-Docker service create restart policy
+Docker service create restart policy -
 
 Sonarqube + Jekins  !!!!!!!!!!!
 
-update jenkins version
-Jenkins plugins. 
+update jenkins version  - not need
+Jenkins plugins. -  
 
-JENKINS NFS !!!!!!
+JENKINS NFS !!!!!! +
