@@ -18,4 +18,11 @@ Command for start Jenkins in a docker swarm
         --mount "type=bind,source=/opt/docker/jenkins,target=/var/jenkins_home" \
         --reserve-memory 300m \
         jenkins:2.7.4-alpine
-	
+
+Install sonarqube for testing code
+
+    docker service create --name sonarqube \
+        -p 9000:9000 \
+        -p 9092:9092 \
+        --constraint 'node.labels.type == worker' \
+        sonarqube
