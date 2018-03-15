@@ -9,15 +9,25 @@ Mark all docker hosts as a worker
     docker node update --label-add type=worker host01
 
 Command for start Jenkins in a docker swarm
+#    docker service create --name jenkins \
+#        -p 8080:8080 \
+#        -p 50000:50000 \
+#        --constraint 'node.labels.type == worker' \
+#        -e JENKINS_OPTS="--prefix=/jenkins" \
+#        -e JAVA_OPTS="-Djenkins.install.runSetupWizard=false" \
+#        --mount "type=bind,source=/opt/docker/jenkins,target=/var/jenkins_home" \
+#        --reserve-memory 300m \
+#        jenkins:2.7.4-alpine
+
     docker service create --name jenkins \
         -p 8080:8080 \
         -p 50000:50000 \
         --constraint 'node.labels.type == worker' \
         -e JENKINS_OPTS="--prefix=/jenkins" \
-        -e JAVA_OPTS="-Djenkins.install.runSetupWizard=false" \
         --mount "type=bind,source=/opt/docker/jenkins,target=/var/jenkins_home" \
         --reserve-memory 300m \
-        jenkins:2.7.4-alpine
+        jenkins
+---->  on host03 run cat  cat secrets/initialAdminPassword
 
 Install sonarqube for testing code
 
