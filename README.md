@@ -1,11 +1,49 @@
-1   Software Development Life Cycle	Set of knowledges about SDLC,  base terms and approaches
-2	Software environments organization	Base terms, requirements for DEV, QA, STAGE, PROD, etc. environments	
-3	Software Development Methodology	Set of knowledges: Waterfall, SCRUM, Knaban , base terms and approaches		
-4	Basics of IT infrastructure and clouds.	Base knowledges of IT infrastructure. EPAM cloud. Base set of AWS products. Vmware. Cloud definitions and service models (IaaS, PaaS, SaaS, [IaaC] ).
-5	Basics of automation. Set of automation and orchestration tools: puppet/chef/ansible. Vagrant. Docker.	
-6	Development tools. VCS.	Base skills for setup and maintenance : svn,git,gitlab, artifactory, etc.		
-7	Build tools.	Base skills for setup and maintenance : ant,  maven, gradle, etc.	
-8	Basics of CI/CD. Toolset.	Base skills for setup and maintenance : jenkins, teamcity....		
-9	Monitoring and logging tools	Base knowledges of monitoring tools and log analizers. Zabbix/splunk. Kibana/logstash Personal task	
-10	Scripting languages. Basics of Python/Ruby/javascript	
-11	Java stack applications administration and support	Base knowledges of Java stack. Java application servers (Tomcat, Jboss, … )
+1. Vagrant Cluster
+    Use command "vagrant up" to run and setup 3 VM's (host01, host02, host03).
+        host03 - is a master. Vagrant installs Ansible on that server. Also, runs docker swarm cluster.
+        host01, host02 - are slave servers. Those VM's join to the Docker Swarm using Token which generates on a host03.
+
+2. Ansible. 
+    We are using Ansible for:
+        1) Installation and configuration docker on all hosts.
+        2) Setups NFS and connect it to all hosts. 
+
+3. Terraform
+    I have used Terraform to UP little infrastructure in the AWS. I have written a config.tf file, where I describe infrastructure which we need.
+
+4. Docker
+    We are using Docker for:
+        1) Running Jenkins
+        2) Running Sonarqube 
+    
+    For run Jenkins & Sonarqube on a Docker Swarm, we should mark all hosts as a worker.
+        docker node update --label-add type=worker host02
+        docker node update --label-add type=worker host03
+        docker node update --label-add type=worker host01
+
+    Jenkins. Jenkins requires a directory which will be available from all hosts. So I have created a new directory on an NFS store. 
+        mkdir -p /opt/docker/jenkins
+        
+    For run Jenkins I am using next command:
+        docker service create --name jenkins \
+        -p 8080:8080 \
+        -p 50000:50000 \
+        --constraint 'node.labels.type == worker' \
+        -e JENKINS_OPTS="--prefix=/jenkins" \
+        --mount "type=bind,source=/opt/docker/jenkins,target=/var/jenkins_home" \
+        --reserve-memory 300m \
+        jenkins
+
+    For run Sonarqube I am using next command:
+        docker service create --name sonarqube \
+        -p 9000:9000 \
+        -p 9092:9092 \
+        --constraint 'node.labels.type == worker' \
+        sonarqube
+
+5. Jenkins + Sonarqube
+    We have runs the job which builds maven project and runs Sonarqube analysis.
+    Sonarqube is connected to the Jenkins by Sonarqube plugin for a Jenkins.
+
+    Url to the maven project: https://github.com/MykhayloLohvynenko/java-maven-junit-helloworld
+
