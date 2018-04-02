@@ -37,7 +37,7 @@ Vagrant.configure('2') do |config|
     # host03.vm.network 'forwarded_port', guest: 9990, host: 9990
     host03.vm.provider :virtualbox do |v|
       v.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
-      v.customize ['modifyvm', :id, '--memory', 2048]
+      v.customize ['modifyvm', :id, '--memory', 4096]
       v.customize ['modifyvm', :id, '--name', 'host03']
     end
     host03.vm.provision "ansible", type: "shell" do |shell|

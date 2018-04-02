@@ -25,14 +25,16 @@
         mkdir -p /opt/docker/jenkins
         
     For run Jenkins I am using next command:
-        docker service create --name jenkins \
+    
+    docker service create --name jenkins-test \
         -p 8080:8080 \
         -p 50000:50000 \
-        --constraint 'node.labels.type == worker' \
+        --constraint 'node.hostname == host03' \
         -e JENKINS_OPTS="--prefix=/jenkins" \
         --mount "type=bind,source=/opt/docker/jenkins,target=/var/jenkins_home" \
+        --mount "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock" \
         --reserve-memory 300m \
-        jenkins
+        jenkins-docker-cli
 
     For run Sonarqube I am using next command:
         docker service create --name sonarqube \
@@ -40,10 +42,20 @@
         -p 9092:9092 \
         --constraint 'node.labels.type == worker' \
         sonarqube
+    
+    For up dokcer registry I am using next command:
+    
+        docker service create --name registry \
+        -p 5000:5000 \
+        --constraint 'node.hostname == host03' \
+        registry:2
 
 5. Jenkins + Sonarqube
     We have runs the job which builds maven project and runs Sonarqube analysis.
     Sonarqube is connected to the Jenkins by Sonarqube plugin for a Jenkins.
 
-    Url to the maven project: https://github.com/MykhayloLohvynenko/java-maven-junit-helloworld
+  Url to the maven project: https://github.com/MykhayloLohvynenko/java-maven-junit-helloworld
+
+
+
 
