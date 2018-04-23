@@ -49,6 +49,18 @@ Vagrant.configure('2') do |config|
       shell.args = ''
     end
   end
+  
+  config.vm.define 'host04' do |host02|
+    host02.vm.box = 'centos/7'
+    host02.vm.hostname = 'host04'
+    host02.vm.network :private_network, ip: '192.168.11.14'
+    # host02.vm.network 'forwarded_port', guest: 9990, host: 9990
+    host02.vm.provider :virtualbox do |v|
+      v.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+      v.customize ['modifyvm', :id, '--memory', 2048]
+      v.customize ['modifyvm', :id, '--name', 'host04']
+    end
+  end
 
   config.vm.provider :virtualbox do |vb|
     # This allows symlinks to be created within the /vagrant root directory,
