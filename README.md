@@ -130,7 +130,7 @@
         jjin64lsw2dr  logging_kibana.1                            docker.elastic.co/kibana/kibana:5.3.0                agent2   Running        Running 2 minutes ago
         orzfd05rzq8e  logging_elasticsearch.1                     docker.elastic.co/elasticsearch/elasticsearch:5.3.0  agent1   Running        Running 3 minutes ago
     
-6 Zabbix     
+7. Zabbix     
     
    I have installed and configured Zabbix server on server host04. 
    
@@ -145,7 +145,7 @@
 
     docker run --name zabbix-agent -e ZBX_HOSTNAME="$(hostname)" -e ZBX_SERVER_HOST="192.168.11.14" -p 10050:10050 --privileged -d zabbix/zabbix-agent:alpine-3.4-latest
 
-7. cadvisor monitoring
+8. cadvisor monitoring
 
     We will define the entire stack for monitoring in the docker-stack.yml file. This will contain the information about different services including the deploy stratergies. This file will be in the docker-compose v3 format. We can then deploy it with one command.
         
